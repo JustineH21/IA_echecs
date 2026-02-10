@@ -11,6 +11,10 @@ def score_board(board, joueur_blanc:bool):
     for piece_type in valeur_piece.keys():
         score += len(board.pieces(piece_type, chess.WHITE)) * valeur_piece[piece_type]
         score -= len(board.pieces(piece_type, chess.BLACK)) * valeur_piece[piece_type]
+    
+    # bonus pour la mobilité (mieux différencier les bons coups et choix plus faciles)
+    score += len(list(board.legal_moves)) * 0.05
+    
     if joueur_blanc:
         return score
     else:
@@ -40,7 +44,7 @@ def minimax(board, profondeur, isMaxTurn, historique, donnees_partie, a = float(
                 if temp[0]: 
                     score_max = float('inf') # si on connaît un coup connu intéressant, on le joue forcément (car c'est le meilleur coup possible)
             else:
-                score = minimax(board, profondeur - 1, False, historique, donnees_partie)
+                score = minimax(board, profondeur - 1, False, historique, donnees_partie, a, b)
                 score_max = max(score_max, score)
             board.pop()
             a = max(a, score_max)
@@ -51,7 +55,7 @@ def minimax(board, profondeur, isMaxTurn, historique, donnees_partie, a = float(
         score_min = float('inf')
         for move in board.legal_moves:
             board.push(move)
-            score = minimax(board, profondeur - 1, True, historique, donnees_partie)
+            score = minimax(board, profondeur - 1, True, historique, donnees_partie, a, b)
             board.pop()
             score_min = min(score_min, score)
             b = min(b, score_min)
@@ -60,8 +64,8 @@ def minimax(board, profondeur, isMaxTurn, historique, donnees_partie, a = float(
         return score_min
 
 def choisir_move_connu(board, historique, dispoW, dispoB, donnees_partie): # renvoie un booléen (coup connu intéressant trouvé ou non) et le coup à jouer (ou None)
+    dic_coups = {}
     if dispoW in historique and dispoB in historique: # si les deux sont dans l'historique, on choisit celui qui a le meilleur score moyen sur le plus de parties
-        dic_coups = {}
         for move in historique[dispoW]:
             if board.parse_san(move) in board.legal_moves:
                 board.push_san(move)
@@ -94,8 +98,8 @@ def choisir_move_connu(board, historique, dispoW, dispoB, donnees_partie): # ren
     nb_moves = 0
     for move in dic_coups:
         nb_moves += 1
-        if dic_coups[move][0] > best_move[1]:
-            best_move = (move, dic_coups[move][0])
+        if dic_coups[move] > best_move[1]:
+            best_move = (move, dic_coups[move])
     if best_move[1] > 0.5 or nb_moves == len(list(board.legal_moves)):
         # si le meilleur coup a un score moyen supérieur à 0.5, on le joue ou si l'IA connaît déjà tous les coups possibles, donc c'est vraiment le meilleur coup
         return (True, board.parse_san(best_move[0])) # passe du str au move
@@ -110,7 +114,9 @@ def choisir_deplacement(board, donnees_partie, historique):
             return a[1], dispoW
 
     # si on ne connaît pas la disposition, ou qu'aucun coup connu n'a l'air intéressant, on fait minimax
-    best_move = (None, float("-inf"))
+    best_moves = []  # liste des meilleurs coups (pour gérer les égalités)
+    best_score = float("-inf")
+    
     for move in board.legal_moves:
         if dispoW in historique or dispoB in historique:
             if str(move) in historique[dispoW] or str(move) in historique[dispoB]: # on ne peut pas faire "and" car sinon ça va bugué car historique[dispoW] peut ne pas exister
@@ -122,14 +128,20 @@ def choisir_deplacement(board, donnees_partie, historique):
             continue
         score = minimax(board, 3, False, historique, donnees_partie)
         board.pop()
-        if score > best_move[1]:
-            best_move = (move, score)
+        
+        # Gestion des égalités pour éviter de toujours choisir le même coup
+        if score > best_score:
+            best_score = score
+            best_moves = [move]
+        elif score == best_score:
+            best_moves.append(move)
 
-    if best_move[0] is None:
+    if not best_moves:
         print(dispoW)
         return (random.choice(list(board.legal_moves)), dispoW) # si jamais il n'y a aucun coup possible (ce qui ne devrait pas arriver), on en choisit un au hasard pour éviter de faire planter
 
-    return best_move[0], dispoW
+    # Choix aléatoire parmi les meilleurs coups pour éviter la répétition
+    return random.choice(best_moves), dispoW
 
 def get_board_disposition(board):
     dispoW = ""

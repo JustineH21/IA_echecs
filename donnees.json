@@ -1,1 +1,1196 @@
-{}
+{
+    "rnbqkbnr,pppppppp,        ,        ,        ,        ,PPPPPPPP,RNBQKBNR": {
+        "e2e3": [
+            -1,
+            1
+        ]
+    },
+    "rnbqkbnr,pppppppp,        ,        ,        ,    P   ,PPPP PPP,RNBQKBNR": {
+        "g7g6": [
+            1,
+            1
+        ]
+    },
+    "rnbqkbnr,pppppp p,      p ,        ,        ,    P   ,PPPP PPP,RNBQKBNR": {
+        "f1b5": [
+            -1,
+            1
+        ]
+    },
+    "rnbqkbnr,pppppp p,      p , B      ,        ,    P   ,PPPP PPP,RNBQK NR": {
+        "c7c6": [
+            1,
+            1
+        ]
+    },
+    "rnbqkbnr,pp ppp p,  p   p , B      ,        ,    P   ,PPPP PPP,RNBQK NR": {
+        "b5c4": [
+            -1,
+            1
+        ]
+    },
+    "rnbqkbnr,pp ppp p,  p   p ,        ,  B     ,    P   ,PPPP PPP,RNBQK NR": {
+        "d7d6": [
+            1,
+            1
+        ]
+    },
+    "rnbqkbnr,pp  pp p,  pp  p ,        ,  B     ,    P   ,PPPP PPP,RNBQK NR": {
+        "d1f3": [
+            -1,
+            1
+        ]
+    },
+    "rnbqkbnr,pp  pp p,  pp  p ,        ,  B     ,    PQ  ,PPPP PPP,RNB K NR": {
+        "c8f5": [
+            1,
+            1
+        ]
+    },
+    "rn qkbnr,pp  pp p,  pp  p ,     b  ,  B     ,    PQ  ,PPPP PPP,RNB K NR": {
+        "e3e4": [
+            -1,
+            1
+        ]
+    },
+    "rn qkbnr,pp  pp p,  pp  p ,     b  ,  B P   ,     Q  ,PPPP PPP,RNB K NR": {
+        "b7b5": [
+            1,
+            1
+        ]
+    },
+    "rn qkbnr,p   pp p,  pp  p , p   b  ,  B P   ,     Q  ,PPPP PPP,RNB K NR": {
+        "c4b5": [
+            -1,
+            1
+        ]
+    },
+    "rn qkbnr,p   pp p,  pp  p , B   b  ,    P   ,     Q  ,PPPP PPP,RNB K NR": {
+        "f5c8": [
+            1,
+            1
+        ]
+    },
+    "rnbqkbnr,p   pp p,  pp  p , B      ,    P   ,     Q  ,PPPP PPP,RNB K NR": {
+        "b5c4": [
+            -1,
+            1
+        ]
+    },
+    "rnbqkbnr,p   pp p,  pp  p ,        ,  B P   ,     Q  ,PPPP PPP,RNB K NR": {
+        "g8h6": [
+            1,
+            1
+        ]
+    },
+    "rnbqkb r,p   pp p,  pp  pn,        ,  B P   ,     Q  ,PPPP PPP,RNB K NR": {
+        "f3c3": [
+            -1,
+            1
+        ]
+    },
+    "rnbqkb r,p   pp p,  pp  pn,        ,  B P   ,  Q     ,PPPP PPP,RNB K NR": {
+        "f7f6": [
+            1,
+            1
+        ]
+    },
+    "rnbqkb r,p   p  p,  pp ppn,        ,  B P   ,  Q     ,PPPP PPP,RNB K NR": {
+        "d2d4": [
+            -1,
+            1
+        ]
+    },
+    "rnbqkb r,p   p  p,  pp ppn,        ,  BPP   ,  Q     ,PPP  PPP,RNB K NR": {
+        "g6g5": [
+            1,
+            1
+        ]
+    },
+    "rnbqkb r,p   p  p,  pp p n,      p ,  BPP   ,  Q     ,PPP  PPP,RNB K NR": {
+        "h2h4": [
+            -1,
+            1
+        ]
+    },
+    "rnbqkb r,p   p  p,  pp p n,      p ,  BPP  P,  Q     ,PPP  PP ,RNB K NR": {
+        "h6g4": [
+            1,
+            1
+        ]
+    },
+    "rnbqkb r,p   p  p,  pp p  ,      p ,  BPP nP,  Q     ,PPP  PP ,RNB K NR": {
+        "h4g5": [
+            -1,
+            1
+        ]
+    },
+    "rnbqkb r,p   p  p,  pp p  ,      P ,  BPP n ,  Q     ,PPP  PP ,RNB K NR": {
+        "f6g5": [
+            1,
+            1
+        ]
+    },
+    "rnbqkb r,p   p  p,  pp    ,      p ,  BPP n ,  Q     ,PPP  PP ,RNB K NR": {
+        "c1g5": [
+            -1,
+            1
+        ]
+    },
+    "rnbqkb r,p   p  p,  pp    ,      B ,  BPP n ,  Q     ,PPP  PP ,RN  K NR": {
+        "h7h6": [
+            1,
+            1
+        ]
+    },
+    "rnbqkb r,p   p   ,  pp   p,      B ,  BPP n ,  Q     ,PPP  PP ,RN  K NR": {
+        "f2f3": [
+            -1,
+            1
+        ]
+    },
+    "rnbqkb r,p   p   ,  pp   p,      B ,  BPP n ,  Q  P  ,PPP   P ,RN  K NR": {
+        "g4f6": [
+            1,
+            1
+        ]
+    },
+    "rnbqkb r,p   p   ,  pp n p,      B ,  BPP   ,  Q  P  ,PPP   P ,RN  K NR": {
+        "g5f6": [
+            -1,
+            1
+        ]
+    },
+    "rnbqkb r,p   p   ,  pp B p,        ,  BPP   ,  Q  P  ,PPP   P ,RN  K NR": {
+        "e7f6": [
+            1,
+            1
+        ]
+    },
+    "rnbqkb r,p       ,  pp p p,        ,  BPP   ,  Q  P  ,PPP   P ,RN  K NR": {
+        "h1h5": [
+            -1,
+            1
+        ]
+    },
+    "rnbqkb r,p       ,  pp p p,       R,  BPP   ,  Q  P  ,PPP   P ,RN  K N ": {
+        "a7a6": [
+            1,
+            1
+        ]
+    },
+    "rnbqkb r,        ,p pp p p,       R,  BPP   ,  Q  P  ,PPP   P ,RN  K N ": {
+        "c3e3": [
+            -1,
+            1
+        ]
+    },
+    "rnbqkb r,        ,p pp p p,       R,  BPP   ,    QP  ,PPP   P ,RN  K N ": {
+        "e8e7": [
+            1,
+            1
+        ]
+    },
+    "rnbq b r,    k   ,p pp p p,       R,  BPP   ,    QP  ,PPP   P ,RN  K N ": {
+        "a2a4": [
+            -1,
+            1
+        ]
+    },
+    "rnbq b r,    k   ,p pp p p,       R,P BPP   ,    QP  , PP   P ,RN  K N ": {
+        "a8a7": [
+            1,
+            1
+        ]
+    },
+    " nbq b r,r   k   ,p pp p p,       R,P BPP   ,    QP  , PP   P ,RN  K N ": {
+        "b1c3": [
+            -1,
+            1
+        ]
+    },
+    " nbq b r,r   k   ,p pp p p,       R,P BPP   ,  N QP  , PP   P ,R   K N ": {
+        "a7c7": [
+            1,
+            1
+        ]
+    },
+    " nbq b r,  r k   ,p pp p p,       R,P BPP   ,  N QP  , PP   P ,R   K N ": {
+        "e1f2": [
+            -1,
+            1
+        ]
+    },
+    " nbq b r,  r k   ,p pp p p,       R,P BPP   ,  N QP  , PP  KP ,R     N ": {
+        "e7e8": [
+            1,
+            1
+        ]
+    },
+    " nbqkb r,  r     ,p pp p p,       R,P BPP   ,  N QP  , PP  KP ,R     N ": {
+        "e3f4": [
+            -1,
+            1
+        ]
+    },
+    " nbqkb r,  r     ,p pp p p,       R,P BPPQ  ,  N  P  , PP  KP ,R     N ": {
+        "e8e7": [
+            1,
+            1
+        ]
+    },
+    " nbq b r,  r k   ,p pp p p,       R,P BPPQ  ,  N  P  , PP  KP ,R     N ": {
+        "f2e3": [
+            -1,
+            1
+        ]
+    },
+    " nbq b r,  r k   ,p pp p p,       R,P BPPQ  ,  N KP  , PP   P ,R     N ": {
+        "e7e8": [
+            1,
+            1
+        ]
+    },
+    " nbqkb r,  r     ,p pp p p,       R,P BPPQ  ,  N KP  , PP   P ,R     N ": {
+        "e3d2": [
+            -1,
+            1
+        ]
+    },
+    " nbqkb r,  r     ,p pp p p,       R,P BPPQ  ,  N  P  , PPK  P ,R     N ": {
+        "e8e7": [
+            1,
+            1
+        ]
+    },
+    " nbq b r,  r k   ,p pp p p,       R,P BPPQ  ,  N  P  , PPK  P ,R     N ": {
+        "f4g3": [
+            -1,
+            1
+        ]
+    },
+    " nbq b r,  r k   ,p pp p p,       R,P BPP   ,  N  PQ , PPK  P ,R     N ": {
+        "e7e8": [
+            1,
+            1
+        ]
+    },
+    " nbqkb r,  r     ,p pp p p,       R,P BPP   ,  N  PQ , PPK  P ,R     N ": {
+        "g3g6": [
+            -1,
+            1
+        ]
+    },
+    " nbqkb r,  r     ,p pp pQp,       R,P BPP   ,  N  P  , PPK  P ,R     N ": {
+        "e8d7": [
+            1,
+            1
+        ]
+    },
+    " nbq b r,  rk    ,p pp pQp,       R,P BPP   ,  N  P  , PPK  P ,R     N ": {
+        "h5h4": [
+            -1,
+            1
+        ]
+    },
+    " nbq b r,  rk    ,p pp pQp,        ,P BPP  R,  N  P  , PPK  P ,R     N ": {
+        "d8e7": [
+            1,
+            1
+        ]
+    },
+    " nb  b r,  rkq   ,p pp pQp,        ,P BPP  R,  N  P  , PPK  P ,R     N ": {
+        "g1h3": [
+            -1,
+            1
+        ]
+    },
+    " nb  b r,  rkq   ,p pp pQp,        ,P BPP  R,  N  P N, PPK  P ,R       ": {
+        "d7d8": [
+            1,
+            1
+        ]
+    },
+    " nbk b r,  r q   ,p pp pQp,        ,P BPP  R,  N  P N, PPK  P ,R       ": {
+        "h3f2": [
+            -1,
+            1
+        ]
+    },
+    " nbk b r,  r q   ,p pp pQp,        ,P BPP  R,  N  P  , PPK NP ,R       ": {
+        "f6f5": [
+            1,
+            1
+        ]
+    },
+    " nbk b r,  r q   ,p pp  Qp,     p  ,P BPP  R,  N  P  , PPK NP ,R       ": {
+        "h4f4": [
+            -1,
+            1
+        ]
+    },
+    " nbk b r,  r q   ,p pp  Qp,     p  ,P BPPR  ,  N  P  , PPK NP ,R       ": {
+        "e7g7": [
+            1,
+            1
+        ]
+    },
+    " nbk b r,  r   q ,p pp  Qp,     p  ,P BPPR  ,  N  P  , PPK NP ,R       ": {
+        "g6g7": [
+            -1,
+            1
+        ]
+    },
+    " nbk b r,  r   Q ,p pp   p,     p  ,P BPPR  ,  N  P  , PPK NP ,R       ": {
+        "f8g7": [
+            1,
+            1
+        ]
+    },
+    " nbk   r,  r   b ,p pp   p,     p  ,P BPPR  ,  N  P  , PPK NP ,R       ": {
+        "c3e2": [
+            -1,
+            1
+        ]
+    },
+    " nbk   r,  r   b ,p pp   p,     p  ,P BPPR  ,     P  , PPKNNP ,R       ": {
+        "f5e4": [
+            1,
+            1
+        ]
+    },
+    " nbk   r,  r   b ,p pp   p,        ,P BPpR  ,     P  , PPKNNP ,R       ": {
+        "f3e4": [
+            -1,
+            1
+        ]
+    },
+    " nbk   r,  r   b ,p pp   p,        ,P BPPR  ,        , PPKNNP ,R       ": {
+        "c7b7": [
+            1,
+            1
+        ]
+    },
+    " nbk   r, r    b ,p pp   p,        ,P BPPR  ,        , PPKNNP ,R       ": {
+        "f2d3": [
+            -1,
+            1
+        ]
+    },
+    " nbk   r, r    b ,p pp   p,        ,P BPPR  ,   N    , PPKN P ,R       ": {
+        "h8h7": [
+            1,
+            1
+        ]
+    },
+    " nbk    , r    br,p pp   p,        ,P BPPR  ,   N    , PPKN P ,R       ": {
+        "a1h1": [
+            -1,
+            1
+        ]
+    },
+    " nbk    , r    br,p pp   p,        ,P BPPR  ,   N    , PPKN P ,       R": {
+        "h7h8": [
+            1,
+            1
+        ]
+    },
+    " nbk   r, r    b ,p pp   p,        ,P BPPR  ,   N    , PPKN P ,       R": {
+        "h1h5": [
+            -1,
+            1
+        ]
+    },
+    " nbk   r, r    b ,p pp   p,       R,P BPPR  ,   N    , PPKN P ,        ": {
+        "b7c7": [
+            1,
+            1
+        ]
+    },
+    " nbk   r,  r   b ,p pp   p,       R,P BPPR  ,   N    , PPKN P ,        ": {
+        "b2b4": [
+            -1,
+            1
+        ]
+    },
+    " nbk   r,  r   b ,p pp   p,       R,PPBPPR  ,   N    ,  PKN P ,        ": {
+        "d8e8": [
+            1,
+            1
+        ]
+    },
+    " nb k  r,  r   b ,p pp   p,       R,PPBPPR  ,   N    ,  PKN P ,        ": {
+        "c4a2": [
+            -1,
+            1
+        ]
+    },
+    " nb k  r,  r   b ,p pp   p,       R,PP PPR  ,   N    ,B PKN P ,        ": {
+        "e8d8": [
+            1,
+            1
+        ]
+    },
+    " nbk   r,  r   b ,p pp   p,       R,PP PPR  ,   N    ,B PKN P ,        ": {
+        "g2g4": [
+            -1,
+            1
+        ]
+    },
+    " nbk   r,  r   b ,p pp   p,       R,PP PPRP ,   N    ,B PKN   ,        ": {
+        "c8b7": [
+            1,
+            1
+        ]
+    },
+    " n k   r, br   b ,p pp   p,       R,PP PPRP ,   N    ,B PKN   ,        ": {
+        "f4f1": [
+            -1,
+            1
+        ]
+    },
+    " n k   r, br   b ,p pp   p,       R,PP PP P ,   N    ,B PKN   ,     R  ": {
+        "d8e8": [
+            1,
+            1
+        ]
+    },
+    " n  k  r, br   b ,p pp   p,       R,PP PP P ,   N    ,B PKN   ,     R  ": {
+        "a2c4": [
+            -1,
+            1
+        ]
+    },
+    " n  k  r, br   b ,p pp   p,       R,PPBPP P ,   N    ,  PKN   ,     R  ": {
+        "c7d7": [
+            1,
+            1
+        ]
+    },
+    " n  k  r, b r  b ,p pp   p,       R,PPBPP P ,   N    ,  PKN   ,     R  ": {
+        "c4a2": [
+            -1,
+            1
+        ]
+    },
+    " n  k  r, b r  b ,p pp   p,       R,PP PP P ,   N    ,B PKN   ,     R  ": {
+        "h8h7": [
+            1,
+            1
+        ]
+    },
+    " n  k   , b r  br,p pp   p,       R,PP PP P ,   N    ,B PKN   ,     R  ": {
+        "a2g8": [
+            -1,
+            1
+        ]
+    },
+    " n  k B , b r  br,p pp   p,       R,PP PP P ,   N    ,  PKN   ,     R  ": {
+        "h7h8": [
+            1,
+            1
+        ]
+    },
+    " n  k Br, b r  b ,p pp   p,       R,PP PP P ,   N    ,  PKN   ,     R  ": {
+        "g8e6": [
+            -1,
+            1
+        ]
+    },
+    " n  k  r, b r  b ,p ppB  p,       R,PP PP P ,   N    ,  PKN   ,     R  ": {
+        "d7c7": [
+            1,
+            1
+        ]
+    },
+    " n  k  r, br   b ,p ppB  p,       R,PP PP P ,   N    ,  PKN   ,     R  ": {
+        "e6b3": [
+            -1,
+            1
+        ]
+    },
+    " n  k  r, br   b ,p pp   p,       R,PP PP P , B N    ,  PKN   ,     R  ": {
+        "c7d7": [
+            1,
+            1
+        ]
+    },
+    " n  k  r, b r  b ,p pp   p,       R,PP PP P , B N    ,  PKN   ,     R  ": {
+        "c2c3": [
+            -1,
+            1
+        ]
+    },
+    " n  k  r, b r  b ,p pp   p,       R,PP PP P , BPN    ,   KN   ,     R  ": {
+        "h8h7": [
+            1,
+            1
+        ]
+    },
+    " n  k   , b r  br,p pp   p,       R,PP PP P , BPN    ,   KN   ,     R  ": {
+        "b3g8": [
+            -1,
+            1
+        ]
+    },
+    " n  k B , b r  br,p pp   p,       R,PP PP P ,  PN    ,   KN   ,     R  ": {
+        "h7h8": [
+            1,
+            1
+        ]
+    },
+    " n  k Br, b r  b ,p pp   p,       R,PP PP P ,  PN    ,   KN   ,     R  ": {
+        "g8c4": [
+            -1,
+            1
+        ]
+    },
+    " n  k  r, b r  b ,p pp   p,       R,PPBPP P ,  PN    ,   KN   ,     R  ": {
+        "b7a8": [
+            1,
+            1
+        ]
+    },
+    "bn  k  r,   r  b ,p pp   p,       R,PPBPP P ,  PN    ,   KN   ,     R  ": {
+        "c4a2": [
+            -1,
+            1
+        ]
+    },
+    "bn  k  r,   r  b ,p pp   p,       R,PP PP P ,  PN    ,B  KN   ,     R  ": {
+        "a8b7": [
+            1,
+            1
+        ]
+    },
+    " n  k  r, b r  b ,p pp   p,       R,PP PP P ,  PN    ,B  KN   ,     R  ": {
+        "d2c2": [
+            -1,
+            1
+        ]
+    },
+    " n  k  r, b r  b ,p pp   p,       R,PP PP P ,  PN    ,B K N   ,     R  ": {
+        "b7a8": [
+            1,
+            1
+        ]
+    },
+    "bn  k  r,   r  b ,p pp   p,       R,PP PP P ,  PN    ,B K N   ,     R  ": {
+        "g4g5": [
+            -1,
+            1
+        ]
+    },
+    "bn  k  r,   r  b ,p pp   p,      PR,PP PP   ,  PN    ,B K N   ,     R  ": {
+        "h6g5": [
+            1,
+            1
+        ]
+    },
+    "bn  k  r,   r  b ,p pp    ,      pR,PP PP   ,  PN    ,B K N   ,     R  ": {
+        "h5h8": [
+            -1,
+            1
+        ]
+    },
+    "bn  k  R,   r  b ,p pp    ,      p ,PP PP   ,  PN    ,B K N   ,     R  ": {
+        "g7h8": [
+            1,
+            1
+        ]
+    },
+    "bn  k  b,   r    ,p pp    ,      p ,PP PP   ,  PN    ,B K N   ,     R  ": {
+        "f1h1": [
+            -1,
+            1
+        ]
+    },
+    "bn  k  b,   r    ,p pp    ,      p ,PP PP   ,  PN    ,B K N   ,       R": {
+        "h8f6": [
+            1,
+            1
+        ]
+    },
+    "bn  k   ,   r    ,p pp b  ,      p ,PP PP   ,  PN    ,B K N   ,       R": {
+        "h1h6": [
+            -1,
+            1
+        ]
+    },
+    "bn  k   ,   r    ,p pp b R,      p ,PP PP   ,  PN    ,B K N   ,        ": {
+        "f6e7": [
+            1,
+            1
+        ]
+    },
+    "bn  k   ,   rb   ,p pp   R,      p ,PP PP   ,  PN    ,B K N   ,        ": {
+        "a2e6": [
+            -1,
+            1
+        ]
+    },
+    "bn  k   ,   rb   ,p ppB  R,      p ,PP PP   ,  PN    ,  K N   ,        ": {
+        "d7d8": [
+            1,
+            1
+        ]
+    },
+    "bn rk   ,    b   ,p ppB  R,      p ,PP PP   ,  PN    ,  K N   ,        ": {
+        "h6h8": [
+            -1,
+            1
+        ]
+    },
+    "bn rk  R,    b   ,p ppB   ,      p ,PP PP   ,  PN    ,  K N   ,        ": {
+        "e7f8": [
+            1,
+            1
+        ]
+    },
+    "bn rkb R,        ,p ppB   ,      p ,PP PP   ,  PN    ,  K N   ,        ": {
+        "h8h7": [
+            -1,
+            1
+        ]
+    },
+    "bn rkb  ,       R,p ppB   ,      p ,PP PP   ,  PN    ,  K N   ,        ": {
+        "d6d5": [
+            1,
+            1
+        ]
+    },
+    "bn rkb  ,       R,p p B   ,   p  p ,PP PP   ,  PN    ,  K N   ,        ": {
+        "e6f7": [
+            -1,
+            1
+        ]
+    },
+    "bn rkb  ,     B R,p p     ,   p  p ,PP PP   ,  PN    ,  K N   ,        ": {
+        "e8e7": [
+            1,
+            1
+        ]
+    },
+    "bn r b  ,    kB R,p p     ,   p  p ,PP PP   ,  PN    ,  K N   ,        ": {
+        "e4e5": [
+            -1,
+            1
+        ]
+    },
+    "bn r b  ,    kB R,p p     ,   pP p ,PP P    ,  PN    ,  K N   ,        ": {
+        "d8c8": [
+            1,
+            1
+        ]
+    },
+    "bnr  b  ,    kB R,p p     ,   pP p ,PP P    ,  PN    ,  K N   ,        ": {
+        "f7d5": [
+            -1,
+            1
+        ]
+    },
+    "bnr  b  ,    k  R,p p     ,   BP p ,PP P    ,  PN    ,  K N   ,        ": {
+        "e7e8": [
+            1,
+            1
+        ]
+    },
+    "bnr kb  ,       R,p p     ,   BP p ,PP P    ,  PN    ,  K N   ,        ": {
+        "d5e6": [
+            -1,
+            1
+        ]
+    },
+    "bnr kb  ,       R,p p B   ,    P p ,PP P    ,  PN    ,  K N   ,        ": {
+        "c8d8": [
+            1,
+            1
+        ]
+    },
+    "bn rkb  ,       R,p p B   ,    P p ,PP P    ,  PN    ,  K N   ,        ": {
+        "e2g3": [
+            -1,
+            1
+        ]
+    },
+    "bn rkb  ,       R,p p B   ,    P p ,PP P    ,  PN  N ,  K     ,        ": {
+        "a6a5": [
+            1,
+            1
+        ]
+    },
+    "bn rkb  ,       R,  p B   ,p   P p ,PP P    ,  PN  N ,  K     ,        ": {
+        "b4a5": [
+            -1,
+            1
+        ]
+    },
+    "bn rkb  ,       R,  p B   ,P   P p ,P  P    ,  PN  N ,  K     ,        ": {
+        "f8e7": [
+            1,
+            1
+        ]
+    },
+    "bn rk   ,    b  R,  p B   ,P   P p ,P  P    ,  PN  N ,  K     ,        ": {
+        "g3e4": [
+            -1,
+            1
+        ]
+    },
+    "bn rk   ,    b  R,  p B   ,P   P p ,P  PN   ,  PN    ,  K     ,        ": {
+        "b8d7": [
+            1,
+            1
+        ]
+    },
+    "b  rk   ,   nb  R,  p B   ,P   P p ,P  PN   ,  PN    ,  K     ,        ": {
+        "a5a6": [
+            -1,
+            1
+        ]
+    },
+    "b  rk   ,   nb  R,P p B   ,    P p ,P  PN   ,  PN    ,  K     ,        ": {
+        "d7b8": [
+            1,
+            1
+        ]
+    },
+    "bn rk   ,    b  R,P p B   ,    P p ,P  PN   ,  PN    ,  K     ,        ": {
+        "h7h8": [
+            -1,
+            1
+        ]
+    },
+    "bn rk  R,    b   ,P p B   ,    P p ,P  PN   ,  PN    ,  K     ,        ": {
+        "e7f8": [
+            1,
+            1
+        ]
+    },
+    "bn rkb R,        ,P p B   ,    P p ,P  PN   ,  PN    ,  K     ,        ": {
+        "a6a7": [
+            -1,
+            1
+        ]
+    },
+    "bn rkb R,P       ,  p B   ,    P p ,P  PN   ,  PN    ,  K     ,        ": {
+        "b8d7": [
+            1,
+            1
+        ]
+    },
+    "b  rkb R,P  n    ,  p B   ,    P p ,P  PN   ,  PN    ,  K     ,        ": {
+        "e4g5": [
+            -1,
+            1
+        ]
+    },
+    "b  rkb R,P  n    ,  p B   ,    P N ,P  P    ,  PN    ,  K     ,        ": {
+        "d8c8": [
+            1,
+            1
+        ]
+    },
+    "b r kb R,P  n    ,  p B   ,    P N ,P  P    ,  PN    ,  K     ,        ": {
+        "h8f8": [
+            -1,
+            1
+        ]
+    },
+    "b r kR  ,P  n    ,  p B   ,    P N ,P  P    ,  PN    ,  K     ,        ": {
+        "e8f8": [
+            1,
+            1
+        ]
+    },
+    "b r  k  ,P  n    ,  p B   ,    P N ,P  P    ,  PN    ,  K     ,        ": {
+        "e6d7": [
+            -1,
+            1
+        ]
+    },
+    "b r  k  ,P  B    ,  p     ,    P N ,P  P    ,  PN    ,  K     ,        ": {
+        "c8e8": [
+            1,
+            1
+        ]
+    },
+    "b   rk  ,P  B    ,  p     ,    P N ,P  P    ,  PN    ,  K     ,        ": {
+        "d7e8": [
+            -1,
+            1
+        ]
+    },
+    "b   Bk  ,P       ,  p     ,    P N ,P  P    ,  PN    ,  K     ,        ": {
+        "f8e8": [
+            1,
+            1
+        ]
+    },
+    "b   k   ,P       ,  p     ,    P N ,P  P    ,  PN    ,  K     ,        ": {
+        "g5e4": [
+            -1,
+            1
+        ]
+    },
+    "b   k   ,P       ,  p     ,    P   ,P  PN   ,  PN    ,  K     ,        ": {
+        "e8f7": [
+            1,
+            1
+        ]
+    },
+    "b       ,P    k  ,  p     ,    P   ,P  PN   ,  PN    ,  K     ,        ": {
+        "c3c4": [
+            -1,
+            1
+        ]
+    },
+    "b       ,P    k  ,  p     ,    P   ,P PPN   ,   N    ,  K     ,        ": {
+        "f7e7": [
+            1,
+            1
+        ]
+    },
+    "b       ,P   k   ,  p     ,    P   ,P PPN   ,   N    ,  K     ,        ": {
+        "a4a5": [
+            -1,
+            1
+        ]
+    },
+    "b       ,P   k   ,  p     ,P   P   ,  PPN   ,   N    ,  K     ,        ": {
+        "e7d7": [
+            1,
+            1
+        ]
+    },
+    "b       ,P  k    ,  p     ,P   P   ,  PPN   ,   N    ,  K     ,        ": {
+        "c2b2": [
+            -1,
+            1
+        ]
+    },
+    "b       ,P  k    ,  p     ,P   P   ,  PPN   ,   N    , K      ,        ": {
+        "d7c7": [
+            1,
+            1
+        ]
+    },
+    "b       ,P k     ,  p     ,P   P   ,  PPN   ,   N    , K      ,        ": {
+        "e4c5": [
+            -1,
+            1
+        ]
+    },
+    "b       ,P k     ,  p     ,P N P   ,  PP    ,   N    , K      ,        ": {
+        "c7d8": [
+            1,
+            1
+        ]
+    },
+    "b  k    ,P       ,  p     ,P N P   ,  PP    ,   N    , K      ,        ": {
+        "d3f4": [
+            -1,
+            1
+        ]
+    },
+    "b  k    ,P       ,  p     ,P N P   ,  PP N  ,        , K      ,        ": {
+        "d8c7": [
+            1,
+            1
+        ]
+    },
+    "b       ,P k     ,  p     ,P N P   ,  PP N  ,        , K      ,        ": {
+        "b2c2": [
+            -1,
+            1
+        ]
+    },
+    "b       ,P k     ,  p     ,P N P   ,  PP N  ,        ,  K     ,        ": {
+        "c7d8": [
+            1,
+            1
+        ]
+    },
+    "b  k    ,P       ,  p     ,P N P   ,  PP N  ,        ,  K     ,        ": {
+        "c5e4": [
+            -1,
+            1
+        ]
+    },
+    "b  k    ,P       ,  p     ,P   P   ,  PPNN  ,        ,  K     ,        ": {
+        "d8c7": [
+            1,
+            1
+        ]
+    },
+    "b       ,P k     ,  p     ,P   P   ,  PPNN  ,        ,  K     ,        ": {
+        "e4d6": [
+            -1,
+            1
+        ]
+    },
+    "b       ,P k     ,  pN    ,P   P   ,  PP N  ,        ,  K     ,        ": {
+        "c7d7": [
+            1,
+            1
+        ]
+    },
+    "b       ,P  k    ,  pN    ,P   P   ,  PP N  ,        ,  K     ,        ": {
+        "c2b2": [
+            -1,
+            1
+        ]
+    },
+    "b       ,P  k    ,  pN    ,P   P   ,  PP N  ,        , K      ,        ": {
+        "d7c7": [
+            1,
+            1
+        ]
+    },
+    "b       ,P k     ,  pN    ,P   P   ,  PP N  ,        , K      ,        ": {
+        "b2b3": [
+            -1,
+            1
+        ]
+    },
+    "b       ,P k     ,  pN    ,P   P   ,  PP N  , K      ,        ,        ": {
+        "c7d7": [
+            1,
+            1
+        ]
+    },
+    "b       ,P  k    ,  pN    ,P   P   ,  PP N  , K      ,        ,        ": {
+        "d6e4": [
+            -1,
+            1
+        ]
+    },
+    "b       ,P  k    ,  p     ,P   P   ,  PPNN  , K      ,        ,        ": {
+        "d7c8": [
+            1,
+            1
+        ]
+    },
+    "b k     ,P       ,  p     ,P   P   ,  PPNN  , K      ,        ,        ": {
+        "a5a6": [
+            -1,
+            1
+        ]
+    },
+    "b k     ,P       ,P p     ,    P   ,  PPNN  , K      ,        ,        ": {
+        "c8c7": [
+            1,
+            1
+        ]
+    },
+    "b       ,P k     ,P p     ,    P   ,  PPNN  , K      ,        ,        ": {
+        "c4c5": [
+            -1,
+            1
+        ]
+    },
+    "b       ,P k     ,P p     ,  P P   ,   PNN  , K      ,        ,        ": {
+        "c7c8": [
+            1,
+            1
+        ]
+    },
+    "b k     ,P       ,P p     ,  P P   ,   PNN  , K      ,        ,        ": {
+        "e4f6": [
+            -1,
+            1
+        ]
+    },
+    "b k     ,P       ,P p  N  ,  P P   ,   P N  , K      ,        ,        ": {
+        "c8c7": [
+            1,
+            1
+        ]
+    },
+    "b       ,P k     ,P p  N  ,  P P   ,   P N  , K      ,        ,        ": {
+        "f4e6": [
+            -1,
+            1
+        ]
+    },
+    "b       ,P k     ,P p NN  ,  P P   ,   P    , K      ,        ,        ": {
+        "c7c8": [
+            1,
+            1
+        ]
+    },
+    "b k     ,P       ,P p NN  ,  P P   ,   P    , K      ,        ,        ": {
+        "b3c2": [
+            -1,
+            1
+        ]
+    },
+    "b k     ,P       ,P p NN  ,  P P   ,   P    ,        ,  K     ,        ": {
+        "a8b7": [
+            1,
+            1
+        ]
+    },
+    "  k     ,Pb      ,P p NN  ,  P P   ,   P    ,        ,  K     ,        ": {
+        "a6b7": [
+            -1,
+            1
+        ]
+    },
+    "  k     ,PP      ,  p NN  ,  P P   ,   P    ,        ,  K     ,        ": {
+        "c8b7": [
+            1,
+            1
+        ]
+    },
+    "        ,Pk      ,  p NN  ,  P P   ,   P    ,        ,  K     ,        ": {
+        "e6d8": [
+            -1,
+            1
+        ]
+    },
+    "   N    ,Pk      ,  p  N  ,  P P   ,   P    ,        ,  K     ,        ": {
+        "b7a7": [
+            1,
+            1
+        ]
+    },
+    "   N    ,k       ,  p  N  ,  P P   ,   P    ,        ,  K     ,        ": {
+        "d8c6": [
+            -1,
+            1
+        ]
+    },
+    "        ,k       ,  N  N  ,  P P   ,   P    ,        ,  K     ,        ": {
+        "a7b7": [
+            1,
+            1
+        ]
+    },
+    "        , k      ,  N  N  ,  P P   ,   P    ,        ,  K     ,        ": {
+        "c6e7": [
+            -1,
+            1
+        ]
+    },
+    "        , k  N   ,     N  ,  P P   ,   P    ,        ,  K     ,        ": {
+        "b7b8": [
+            1,
+            1
+        ]
+    },
+    " k      ,    N   ,     N  ,  P P   ,   P    ,        ,  K     ,        ": {
+        "e7g6": [
+            -1,
+            1
+        ]
+    },
+    " k      ,        ,     NN ,  P P   ,   P    ,        ,  K     ,        ": {
+        "b8b7": [
+            1,
+            1
+        ]
+    },
+    "        , k      ,     NN ,  P P   ,   P    ,        ,  K     ,        ": {
+        "e5e6": [
+            -1,
+            1
+        ]
+    },
+    "        , k      ,    PNN ,  P     ,   P    ,        ,  K     ,        ": {
+        "b7c6": [
+            1,
+            1
+        ]
+    },
+    "        ,        ,  k PNN ,  P     ,   P    ,        ,  K     ,        ": {
+        "e6e7": [
+            -1,
+            1
+        ]
+    },
+    "        ,    P   ,  k  NN ,  P     ,   P    ,        ,  K     ,        ": {
+        "c6b5": [
+            1,
+            1
+        ]
+    },
+    "        ,    P   ,     NN , kP     ,   P    ,        ,  K     ,        ": {
+        "e7e8q": [
+            -1,
+            1
+        ]
+    },
+    "    Q   ,        ,     NN , kP     ,   P    ,        ,  K     ,        ": {
+        "b5a5": [
+            1,
+            1
+        ]
+    },
+    "    Q   ,        ,     NN ,k P     ,   P    ,        ,  K     ,        ": {
+        "g6e5": [
+            -1,
+            1
+        ]
+    },
+    "    Q   ,        ,     N  ,k P N   ,   P    ,        ,  K     ,        ": {
+        "a5a6": [
+            1,
+            1
+        ]
+    },
+    "    Q   ,        ,k    N  ,  P N   ,   P    ,        ,  K     ,        ": {
+        "e8d7": [
+            -1,
+            1
+        ]
+    },
+    "        ,   Q    ,k    N  ,  P N   ,   P    ,        ,  K     ,        ": {
+        "a6a5": [
+            1,
+            1
+        ]
+    },
+    "        ,   Q    ,     N  ,k P N   ,   P    ,        ,  K     ,        ": {
+        "d7b7": [
+            -1,
+            1
+        ]
+    },
+    "        , Q      ,     N  ,k P N   ,   P    ,        ,  K     ,        ": {
+        "a5a4": [
+            1,
+            1
+        ]
+    },
+    "        , Q      ,     N  ,  P N   ,k  P    ,        ,  K     ,        ": {
+        "e5c6": [
+            -1,
+            1
+        ]
+    },
+    "        , Q      ,  N  N  ,  P     ,k  P    ,        ,  K     ,        ": {
+        "a4a3": [
+            1,
+            1
+        ]
+    },
+    "        , Q      ,  N  N  ,  P     ,   P    ,k       ,  K     ,        ": {
+        "f6d7": [
+            -1,
+            1
+        ]
+    },
+    "        , Q N    ,  N     ,  P     ,   P    ,k       ,  K     ,        ": {
+        "a3a2": [
+            1,
+            1
+        ]
+    },
+    "        , Q N    ,  N     ,  P     ,   P    ,        ,k K     ,        ": {
+        "b7a6": [
+            -1,
+            1
+        ]
+    }
+}
