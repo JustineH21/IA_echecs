@@ -18,9 +18,9 @@ class IA_Echecs:
             score += len(self.board.pieces(piece_type, chess.WHITE)) * valeur_piece[piece_type]
             score -= len(self.board.pieces(piece_type, chess.BLACK)) * valeur_piece[piece_type]
             
-        nb_coups = len(list(self.board.legal_moves))
+        nb_coups = self.board.legal_moves.count()#-
         self.board.push(chess.Move.null()) # on fait un mouvement nul pour passer au tour de l'adversaire et calculer le nombre de coups possibles pour lui
-        nb_coups_adversaire = len(list(self.board.legal_moves))
+        nb_coups_adversaire = self.board.legal_moves.count()#-
         self.board.pop() # on revient à la position d'origine
         score += 0.3 * (nb_coups - nb_coups_adversaire) # on valorise les mouvements qui augmentent le nombre de coups possibles pour l'IA et diminuent ceux de l'adversaire
         
@@ -55,9 +55,20 @@ class IA_Echecs:
             return score
         else :
             return -score
+        
+
+    def coup_valeur(self, move):#-
+        score = 0
+        if self.board.is_capture(move):
+            score += 10
+        if move.promotion:
+            score += 20
+        if self.board.gives_check(move):
+            score += 5
+        return score
 
     def minimax(self, profondeur, isMaxTurn, a = float('-inf'), b = float('inf')): 
-        key = (self.board.fen(), profondeur, isMaxTurn)#-
+        key = (self.board.transposition_key(), profondeur, isMaxTurn)#-
         if key in self.transpo:#-
             return self.transpo[key]#-
             
@@ -71,11 +82,11 @@ class IA_Echecs:
             return 0  # Match nul
         elif profondeur == 0:#-
             score = self.score_board()#-
-            self.transposition[key] = score#-
+            self.transpo[key] = score#-
             return score #-
             
         moves = list(self.board.legal_moves)#-Trie les coups
-        moves.sort(key=lambda m: self.board.is_capture(m), reverse=True)#-
+        moves.sort(key=self.coup_valeur, reverse=True)#-
         
         if isMaxTurn:
             score_max = float('-inf')
@@ -328,6 +339,11 @@ class IA_Echecs:
         self.board.reset() # on réinitialise le plateau pour la prochaine partie
         
 ia = IA_Echecs()
+
+
 for i in range(10000):
     print("------------------- Partie " + str(i+1) + " ------------------")
     ia.jouer()
+
+with open("donnees.json", "w") as fichier:
+    json.dump(ia.historique, fichier, indent=4)
