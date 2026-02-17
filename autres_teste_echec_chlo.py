@@ -92,7 +92,29 @@ class IA_Echecs:
         self.board = chess.Board()
         self.transpo = {} #- Si cette position a déjà été évaluée auparavant : on réutilise directement le score
                                                                             #  on évite de recalculer tout le sous-arbre
+        self.killer_moves = {}  
+        self.start_time = 0
+        self.max_time = 5  # seconde par mouvement
+        self.noeuds = 0
 
+    def get_valeur_positionnelle(self, piece, case):
+        """Renvoie valeur positionnelle d'une pièce sur une case donnée"""
+
+        if piece.piece_type == chess.KING:# On utilise une table différente selon la phase de jeu
+            nb_pions = len(self.board.pieces(chess.PAWN, chess.WHITE)) + \
+                    len(self.board.pieces(chess.PAWN, chess.BLACK))
+            if nb_pions > 8:  
+                table = KING_MID_TABLE  # Milieu de partie
+            else:
+                table = KING_MID_TABLE     # Fin de partie
+        else:
+            table = PIECE_TABLES.get(piece.piece_type, [0] * 64)
+        if piece.color == chess.BLACK: #inverser si piece noire
+            case = 63 - case
+        if table:
+            return table[case]
+        else:
+            return 0
 
     def score_board(self):
         """Calcule le score pour le joueur blanc, puis inverse si on cherche pour le joueur noir"""
