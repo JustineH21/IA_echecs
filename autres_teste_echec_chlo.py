@@ -130,11 +130,11 @@ class IA_Echecs:
             for pt in valeur_piece
         )
         
-        # In endgame, centralize the king more aggressively
+        # En fin de partie, le roi devient actif et va plus vers le centre
         white_king_sq = self.board.king(chess.WHITE)
         black_king_sq = self.board.king(chess.BLACK)
         
-        # Distance between kings (closer is better for attacking king)
+        # Distances entre Rois ( plus il sont proches et mieux on peut attaquer le roi) 
         king_distance = chess.square_distance(white_king_sq, black_king_sq)
         
         score = (white_material - black_material) + (8 - king_distance) * 2
@@ -147,13 +147,13 @@ class IA_Echecs:
     
     def score_board(self):
         """Calcule le score pour le joueur blanc, puis inverse si on cherche pour le joueur noir"""
-         # Material count
+         
         score = 0
         for piece_type in valeur_piece.keys():
             score += len(self.board.pieces(piece_type, chess.WHITE)) * valeur_piece[piece_type]
             score -= len(self.board.pieces(piece_type, chess.BLACK)) * valeur_piece[piece_type]
         
-        # Piece-square tables
+        
         for square in chess.SQUARES:
             piece = self.board.piece_at(square)
             if piece is not None:
@@ -163,7 +163,7 @@ class IA_Echecs:
                 else:
                     score -= psq_value
         
-        # Mobility bonus
+       
         nb_coups = len(list(self.board.legal_moves))
 
         if nb_coups > 0:  # seulement si la position n'est pas bloquée
@@ -236,7 +236,7 @@ class IA_Echecs:
         if alpha < stand_pat:
             alpha = stand_pat
         
-        # Only consider captures in quiescence search
+        
         captures = [move for move in self.board.legal_moves if self.board.is_capture(move)]
         captures.sort(key=self.coup_valeur, reverse=True)
         
@@ -255,17 +255,17 @@ class IA_Echecs:
     def minimax(self, profondeur, isMaxTurn, a = float('-inf'), b = float('inf')): 
         self.nodes_evaluated += 1
         
-        # Time check every 1000 nodes
+        
         if self.nodes_evaluated % 1000 == 0:
             if time.time() - self.start_time > self.max_time:
                 return self.score_board()
         
-        # Transposition table lookup
+        
         key = (self.board.transposition_key(), profondeur, isMaxTurn)
         if key in self.transpo:
             return self.transpo[key]
         
-        # Terminal node checks
+       
         if self.board.is_checkmate():
             return float('-inf') if isMaxTurn else float('inf')
         elif self.board.is_game_over():
@@ -276,11 +276,11 @@ class IA_Echecs:
             self.transpo[key] = score
             return score
         
-        # Get and sort moves
+     
         moves = list(self.board.legal_moves)
         moves.sort(key=self.coup_valeur, reverse=True)
         
-        # Add killer moves to front of list
+        
         killer_key = (self.board.transposition_key(), profondeur)
         if killer_key in self.killer_moves:
             killer = self.killer_moves[killer_key]
@@ -298,8 +298,8 @@ class IA_Echecs:
                 score_max = max(score_max, score)
                 a = max(a, score_max)
                 
-                # Update killer move if it causes cutoff
-                if a >= b and i > 0:  # Not first move
+                
+                if a >= b and i > 0:  
                     self.killer_moves[killer_key] = move
                     break
             
@@ -368,20 +368,20 @@ class IA_Echecs:
     def choisir_deplacement(self):
         dispoW, dispoB = self.get_board_disposition()
         
-        # Check historical moves first
+        
         if dispoW in self.historique or dispoB in self.historique:
             a = self.choisir_move_connu(dispoW, dispoB)
             if a[0]:
                 return a[1], dispoW
         
-        # Iterative deepening with time management
+        
         self.start_time = time.time()
         self.nodes_evaluated = 0
         best_moves = []
         best_score = float("-inf")
-        max_depth = 6  # Maximum depth to search
+        max_depth = 6  
         
-        # Adjust max time based on game phase
+       
         if self.board.fullmove_number < 10:
             self.max_time = 3
         elif self.board.fullmove_number < 30:
@@ -389,13 +389,13 @@ class IA_Echecs:
         else:
             self.max_time = 4
         
-        # Iterative deepening loop
+      
         for current_depth in range(1, max_depth + 1):
             best_moves_at_depth = []
             best_score_at_depth = float("-inf")
             moves_to_search = list(self.board.legal_moves)
             
-            # Sort by historical performance first
+            
             def move_priority(move):
                 priority = 0
                 dispo = dispoW if dispoW in self.historique else dispoB
@@ -409,8 +409,7 @@ class IA_Echecs:
             for move in moves_to_search:
                 if dispoW in self.historique:
                     if str(move) in self.historique[dispoW]:
-                        # FIX: Don't skip moves just because they have negative history
-                        # Only skip if they're deeply negative AND we have good alternatives
+                       
                         if self.historique[dispoW][str(move)][0] < -0.5 and \
                            len([m for m in self.historique[dispoW].values() if m[0] > 0]) > 0:
                             continue
@@ -436,14 +435,14 @@ class IA_Echecs:
                 elif score == best_score_at_depth:
                     best_moves_at_depth.append(move)
                 
-                # Time check
+              
                 if time.time() - self.start_time > self.max_time:
                     break
             
             best_moves = best_moves_at_depth
             best_score = best_score_at_depth
             
-            # Time check between depths
+            
             if time.time() - self.start_time > self.max_time:
                 break
         
@@ -510,13 +509,13 @@ class IA_Echecs:
             self.board.push(move)
             print(f"Move: {move} (Nodes evaluated: {self.nodes_evaluated})")
             
-            # Update move history
+           
             if dispo not in self.donnees_partie["historique_coups"]:
                 self.donnees_partie["historique_coups"][dispo] = [str(move)]
             elif str(move) not in self.donnees_partie["historique_coups"][dispo]:
                 self.donnees_partie["historique_coups"][dispo].append(str(move))
         
-        # Game over - record result
+        
         print("Game over")
         if self.board.is_checkmate():
             if ai_color != self.board.turn:
@@ -529,7 +528,7 @@ class IA_Echecs:
         print(f"AI Color: {ai_color}, Result: {self.donnees_partie['resultat']}")
         print(self.board)
         
-        # Update historical data
+        
         dic_coups = self.donnees_partie["historique_coups"]
         for i, disposition in enumerate(dic_coups.keys()):
             if disposition not in self.historique:
@@ -551,7 +550,7 @@ class IA_Echecs:
             
             self.historique[disposition] = res
         
-        # Save updated history
+        
         with open("donnees.json", "w") as fichier:
             json.dump(self.historique, fichier, indent=4, separators=(",", ": "))
         
@@ -560,7 +559,7 @@ class IA_Echecs:
         self.board.reset()
 
 
-# Main execution
+
 if __name__ == "__main__":
     ia = IA_Echecs()
     
