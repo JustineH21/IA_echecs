@@ -98,7 +98,7 @@ class IA_Echecs:
         self.killer_moves = {} #Coups efficaces gardés en mémoire pour explorer moins de possibilités inutiles  
         self.start_time = 0
         self.max_time = 5  # seconde par mouvement
-        self.noeuds = 0
+        self.nodes_evaluated = 0
 
     def get_valeur_positionnelle(self, piece, case):
         """Renvoie valeur positionnelle d'une pièce sur une case donnée"""
