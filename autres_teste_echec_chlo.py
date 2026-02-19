@@ -109,7 +109,7 @@ class IA_Echecs:
             if nb_pions > 8:  
                 table = KING_MID_TABLE  # Milieu de partie
             else:
-                table = KING_MID_TABLE     # Fin de partie
+                table = KING_END_TABLE    # Fin de partie
         else:
             table = PIECE_TABLES.get(piece.piece_type, [0] * 64)
         if piece.color == chess.BLACK: #inverser si piece noire
@@ -152,7 +152,7 @@ class IA_Echecs:
         for square in chess.SQUARES:
             piece = self.board.piece_at(square)
             if piece is not None:
-                psq_value = self.get_piece_square_value(piece, square)
+                psq_value = self.get_valeur_positionnelle(piece, square)
                 if piece.color == chess.WHITE:
                     score += psq_value
                 else:
@@ -287,7 +287,7 @@ class IA_Echecs:
             score_max = float('-inf')
             for i, move in enumerate(moves):
                 self.board.push(move)
-                score = self.minimax(profondeur - 1, False, a, b, False)
+                score = self.minimax(profondeur - 1, False, a, b)
                 self.board.pop()
                 
                 score_max = max(score_max, score)
