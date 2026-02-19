@@ -121,23 +121,18 @@ class IA_Echecs:
             
     def evaluate_endgame(self):
         """Utilisé vers la fin de la partie pour jouer de meilleur coup encore"""
-        white_material = sum(
-            len(self.board.pieces(pt, chess.WHITE)) * valeur_piece[pt]
-            for pt in valeur_piece
-        )
-        black_material = sum(
-            len(self.board.pieces(pt, chess.BLACK)) * valeur_piece[pt]
-            for pt in valeur_piece
-        )
+        materiel_blanc = sum(len(self.board.pieces(pt, chess.WHITE)) * valeur_piece[pt] for pt in valeur_piece)
+        
+        materiel_noir = sum(len(self.board.pieces(pt, chess.BLACK)) * valeur_piece[pt] for pt in valeur_piece)
         
         # En fin de partie, le roi devient actif et va plus vers le centre
-        white_king_sq = self.board.king(chess.WHITE)
-        black_king_sq = self.board.king(chess.BLACK)
+        case_roi_blanc = self.board.king(chess.WHITE)
+        case_roi_noir = self.board.king(chess.BLACK)
         
-        # Distances entre Rois ( plus il sont proches et mieux on peut attaquer le roi) 
-        king_distance = chess.square_distance(white_king_sq, black_king_sq)
+        # Distance entre les rois (plus ils sont proches, plus l'attaque est facile)
+        distance_rois = chess.square_distance(case_roi_blanc, case_roi_noir)
         
-        score = (white_material - black_material) + (8 - king_distance) * 2
+        score = (materiel_blanc - materiel_noir) + (8 - distance_rois) * 2
         
         if self.board.turn:
             return score
