@@ -304,7 +304,7 @@ class IA_Echecs:
             score_min = float('inf')
             for i, move in enumerate(moves):
                 self.board.push(move)
-                score = self.minimax(profondeur - 1, True, a, b, False)
+                score = self.minimax(profondeur - 1, True, a, b)
                 self.board.pop()
                 
                 score_min = min(score_min, score)
