@@ -361,7 +361,7 @@ class IA_Echecs:
         return (False, None) # aucun coup connu n'a l'air intéressant
 
     def choisir_deplacement(self):
-        dispoW, dispoB = self.get_board_disposition()
+        dispoW, dispoB = self.get_board_disposition()# disposition du plateau pour les blancs et les noirs (pour avoir deux fois plus de chances de le connaître dans l'historique)
         
         
         if dispoW in self.historique or dispoB in self.historique:
@@ -372,12 +372,13 @@ class IA_Echecs:
         
         self.start_time = time.time()
         self.nodes_evaluated = 0
-        best_moves = []
+        # si on ne connaît pas la disposition, ou qu'aucun coup connu n'a l'air intéressant, on fait minimax
+        best_moves = [] # liste des meilleurs coups (pour gérer les égalités)
         best_score = float("-inf")
         max_depth = 6  
         
        
-        if self.board.fullmove_number < 10:
+        if self.board.fullmove_number < 10:#-ça permet de faire une meilleure ouverture
             self.max_time = 3
         elif self.board.fullmove_number < 30:
             self.max_time = 5
@@ -393,7 +394,10 @@ class IA_Echecs:
             
             def move_priority(move):
                 priority = 0
-                dispo = dispoW if dispoW in self.historique else dispoB
+                if dispoW in self.historique:
+                    dispo = dispoW  
+                else :
+                    dispo = dispoB
                 if dispo in self.historique and str(move) in self.historique[dispo]:
                     priority += self.historique[dispo][str(move)][0] * 100
                 priority += self.coup_valeur(move)
