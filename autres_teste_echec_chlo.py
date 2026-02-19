@@ -1,8 +1,11 @@
 import chess
 import json
 import random
+import time
 
 valeur_piece = {chess.PAWN: 1, chess.KNIGHT: 3, chess.BISHOP: 3, chess.ROOK: 5, chess.QUEEN: 9, chess.KING: 100000} # car ça bug si on fait inf - inf
+
+# Bonus/malus selon la case où se trouve chaque pièce ( valeurs trouvé sur internet )
 PAWN_TABLE = [
     0,   0,   0,   0,   0,   0,   0,   0,
     50,  50,  50,  50,  50,  50,  50,  50,
@@ -92,7 +95,7 @@ class IA_Echecs:
         self.board = chess.Board()
         self.transpo = {} #- Si cette position a déjà été évaluée auparavant : on réutilise directement le score
                                                                             #  on évite de recalculer tout le sous-arbre
-        self.killer_moves = {}  
+        self.killer_moves = {} #Coups efficaces gardés en mémoire pour explorer moins de possibilités inutiles  
         self.start_time = 0
         self.max_time = 5  # seconde par mouvement
         self.noeuds = 0
@@ -115,116 +118,207 @@ class IA_Echecs:
             return table[case]
         else:
             return 0
+            
+    def evaluate_endgame(self):
+        """Utilisé vers la fin de la partie pour jouer de meilleur coup encore"""
+        white_material = sum(
+            len(self.board.pieces(pt, chess.WHITE)) * valeur_piece[pt]
+            for pt in valeur_piece
+        )
+        black_material = sum(
+            len(self.board.pieces(pt, chess.BLACK)) * valeur_piece[pt]
+            for pt in valeur_piece
+        )
+        
+        # In endgame, centralize the king more aggressively
+        white_king_sq = self.board.king(chess.WHITE)
+        black_king_sq = self.board.king(chess.BLACK)
+        
+        # Distance between kings (closer is better for attacking king)
+        king_distance = chess.square_distance(white_king_sq, black_king_sq)
+        
+        score = (white_material - black_material) + (8 - king_distance) * 2
+        
+        if self.board.turn:
+            return score
+        else:
+            return -score
 
+    
     def score_board(self):
         """Calcule le score pour le joueur blanc, puis inverse si on cherche pour le joueur noir"""
+         # Material count
         score = 0
         for piece_type in valeur_piece.keys():
             score += len(self.board.pieces(piece_type, chess.WHITE)) * valeur_piece[piece_type]
             score -= len(self.board.pieces(piece_type, chess.BLACK)) * valeur_piece[piece_type]
-            
-        nb_coups = self.board.legal_moves.count()#-
-        self.board.push(chess.Move.null()) # on fait un mouvement nul pour passer au tour de l'adversaire et calculer le nombre de coups possibles pour lui
-        nb_coups_adversaire = self.board.legal_moves.count()#-
-        self.board.pop() # on revient à la position d'origine
-        score += 0.3 * (nb_coups - nb_coups_adversaire) # on valorise les mouvements qui augmentent le nombre de coups possibles pour l'IA et diminuent ceux de l'adversaire
+        
+        # Piece-square tables
+        for square in chess.SQUARES:
+            piece = self.board.piece_at(square)
+            if piece is not None:
+                psq_value = self.get_piece_square_value(piece, square)
+                if piece.color == chess.WHITE:
+                    score += psq_value
+                else:
+                    score -= psq_value
+        
+        # Mobility bonus
+        nb_coups = len(list(self.board.legal_moves))
+
+        if nb_coups > 0:  # seulement si la position n'est pas bloquée
+            self.board.push(chess.Move.null())# on fait un mouvement nul pour passer au tour de l'adversaire et calculer le nombre de coups possibles pour lui
+            nb_coups_adversaire = len(list(self.board.legal_moves))
+            self.board.pop()# on revient à la position d'origine
+
+            score += 0.3 * (nb_coups - nb_coups_adversaire)# on valorise les mouvements qui augmentent le nombre de coups possibles pour l'IA et diminuent ceux de l'adversaire
+        
         
         cases_centre = [chess.E4, chess.D4, chess.E5, chess.D5]
         for case in cases_centre:
             piece = self.board.piece_at(case)
             if piece is not None:
                 if piece.color == chess.WHITE:
-                    score += 1.5 * valeur_piece[piece.piece_type] # on valorise les pièces au centre
+                    score += 0.8
                 else:
-                    score -= 1.5 * valeur_piece[piece.piece_type]
-
-        # roi en échec
+                    score -= 0.8
+        
+        # Vérifie penalité/bonus
         if self.board.is_check():
             if self.board.turn:
-                score += -1
-            else :
-                score = 1
-
-        # développement un peu plus réfléchis (début de partie)
+                score -= 2
+            else:
+                score += 2
+        
+        # Bonus d'ouverture (en 15 coups)
         if self.board.fullmove_number < 15:
-            score += 0.2 * (
+            score += 0.15 * (
                 len(self.board.pieces(chess.KNIGHT, chess.WHITE)) +
                 len(self.board.pieces(chess.BISHOP, chess.WHITE))
             )
-            score -= 0.2 * (
+            score -= 0.15 * (
                 len(self.board.pieces(chess.KNIGHT, chess.BLACK)) +
                 len(self.board.pieces(chess.BISHOP, chess.BLACK))
             )
-
+        
         if self.board.turn:
             return score
-        else :
+        else:
             return -score
         
 
     def coup_valeur(self, move):#-
         score = 0
         if self.board.is_capture(move):
-            score += 10
+            # Capture value based on piece captured
+            captured_piece = self.board.piece_at(move.to_square)
+            if captured_piece:
+                score += valeur_piece[captured_piece.piece_type] * 10
         if move.promotion:
             score += 20
         if self.board.gives_check(move):
             score += 5
         return score
 
+    def quiescence(self, alpha, beta, depth=0):
+        """Quiescence search to evaluate tactical positions"""
+        self.nodes_evaluated += 1
+        
+        # Time check
+        if self.nodes_evaluated % 1000 == 0:
+            if time.time() - self.start_time > self.max_time:
+                return self.score_board()
+        
+        stand_pat = self.score_board()
+        
+        if stand_pat >= beta:
+            return beta
+        if alpha < stand_pat:
+            alpha = stand_pat
+        
+        # Only consider captures in quiescence search
+        captures = [move for move in self.board.legal_moves if self.board.is_capture(move)]
+        captures.sort(key=self.coup_valeur, reverse=True)
+        
+        for move in captures:
+            self.board.push(move)
+            score = -self.quiescence(-beta, -alpha, depth + 1)
+            self.board.pop()
+            
+            if score >= beta:
+                return beta
+            if score > alpha:
+                alpha = score
+        
+        return alpha
+
     def minimax(self, profondeur, isMaxTurn, a = float('-inf'), b = float('inf')): 
-        key = (self.board.transposition_key(), profondeur, isMaxTurn)#-
-        if key in self.transpo:#-
-            return self.transpo[key]#-
-            
+        self.nodes_evaluated += 1
+        
+        # Time check every 1000 nodes
+        if self.nodes_evaluated % 1000 == 0:
+            if time.time() - self.start_time > self.max_time:
+                return self.score_board()
+        
+        # Transposition table lookup
+        key = (self.board.transposition_key(), profondeur, isMaxTurn)
+        if key in self.transpo:
+            return self.transpo[key]
+        
+        # Terminal node checks
         if self.board.is_checkmate():
-            # si c'est le tour du joueur Max, alors c'est lui qui a perdu
-            if isMaxTurn:
-                return float('-inf')
-            else:
-                return float('inf')
+            return float('-inf') if isMaxTurn else float('inf')
         elif self.board.is_game_over():
-            return 0  # Match nul
-        elif profondeur == 0:#-
-            score = self.score_board()#-
-            self.transpo[key] = score#-
-            return score #-
-            
-        moves = list(self.board.legal_moves)#-Trie les coups
-        moves.sort(key=self.coup_valeur, reverse=True)#-
+            return 0  # Stalemate
+        elif profondeur == 0:
+            # Use quiescence search instead of immediate eval
+            score = self.quiescence(a, b)
+            self.transpo[key] = score
+            return score
+        
+        # Get and sort moves
+        moves = list(self.board.legal_moves)
+        moves.sort(key=self.coup_valeur, reverse=True)
+        
+        # Add killer moves to front of list
+        killer_key = (self.board.transposition_key(), profondeur)
+        if killer_key in self.killer_moves:
+            killer = self.killer_moves[killer_key]
+            if killer in moves:
+                moves.remove(killer)
+                moves.insert(0, killer)
         
         if isMaxTurn:
             score_max = float('-inf')
-            for move in moves:
+            for i, move in enumerate(moves):
                 self.board.push(move)
-                dispo = self.get_board_disposition()
-                if dispo[0] in self.donnees_partie["historique_coups"] or dispo[1] in self.donnees_partie["historique_coups"]: # on ne prend que les coups qui n'ont pas encore été joués dans cette partie (pour éviter de tourner en rond)
-                    self.board.pop()
-                    continue
-                if dispo[0] in self.donnees_partie["historique_coups"] or dispo[1] in self.donnees_partie["historique_coups"]: 
-                    tmp = self.choisir_move_connu(dispo[0], dispo[1])
-                    if tmp[0]: 
-                        score_max = float('inf') # si on connaît un coup connu intéressant, on le joue forcément (car c'est le meilleur coup possible)
-                else:
-                    score = self.minimax(profondeur - 1, False, a, b)
-                    score_max = max(score_max, score)
+                score = self.minimax(profondeur - 1, False, a, b, False)
                 self.board.pop()
+                
+                score_max = max(score_max, score)
                 a = max(a, score_max)
-                if b <= a:
-                    break  # Coupure alpha-beta
+                
+                # Update killer move if it causes cutoff
+                if a >= b and i > 0:  # Not first move
+                    self.killer_moves[killer_key] = move
+                    break
+            
             self.transpo[key] = score_max
             return score_max
-        else: # on considère que le joueur Min peut jouer n'importe quel coup (on ne sait pas ce qu'il va faire), donc on n'en élimine aucun d'avance
+        else:
             score_min = float('inf')
-            for move in self.board.legal_moves:
+            for i, move in enumerate(moves):
                 self.board.push(move)
-                score = self.minimax(profondeur - 1, True, a, b)
+                score = self.minimax(profondeur - 1, True, a, b, False)
                 self.board.pop()
+                
                 score_min = min(score_min, score)
                 b = min(b, score_min)
+                
                 if b <= a:
-                    break  # Coupure alpha-beta
-            self.transpo[key] = score_min        
+                    break
+            
+            self.transpo[key] = score_min
             return score_min
 
     def choisir_move_connu(self, dispoW, dispoB): # renvoie un booléen (coup connu intéressant trouvé ou non) et le coup à jouer (ou None)
@@ -272,51 +366,93 @@ class IA_Echecs:
         return (False, None) # aucun coup connu n'a l'air intéressant
 
     def choisir_deplacement(self):
-        dispoW, dispoB = self.get_board_disposition() # disposition du plateau pour les blancs et les noirs (pour avoir deux fois plus de chances de le connaître dans l'historique)
+        dispoW, dispoB = self.get_board_disposition()
+        
+        # Check historical moves first
         if dispoW in self.historique or dispoB in self.historique:
             a = self.choisir_move_connu(dispoW, dispoB)
-            if a[0]: 
+            if a[0]:
                 return a[1], dispoW
-
-        # si on ne connaît pas la disposition, ou qu'aucun coup connu n'a l'air intéressant, on fait minimax
-        best_moves = []  # liste des meilleurs coups (pour gérer les égalités)
-        best_score = float("-inf")
-        detph= None
         
-        if self.board.fullmove_number < 10: #-ça permet de faire une meilleure ouvrture
-            depth = 4 
-        else: 
-            depth = 3
+        # Iterative deepening with time management
+        self.start_time = time.time()
+        self.nodes_evaluated = 0
+        best_moves = []
+        best_score = float("-inf")
+        max_depth = 6  # Maximum depth to search
+        
+        # Adjust max time based on game phase
+        if self.board.fullmove_number < 10:
+            self.max_time = 3
+        elif self.board.fullmove_number < 30:
+            self.max_time = 5
+        else:
+            self.max_time = 4
+        
+        # Iterative deepening loop
+        for current_depth in range(1, max_depth + 1):
+            best_moves_at_depth = []
+            best_score_at_depth = float("-inf")
+            moves_to_search = list(self.board.legal_moves)
             
-        for move in self.board.legal_moves:
-            if dispoW in self.historique:
-                if str(move) in self.historique[dispoW]: # on ne peut pas faire "and" car sinon ça va bugué car historique[dispoW] peut ne pas exister
-                    if self.historique[dispoW][str(move)][0] < -0.3:#-on evite quand meme d'empêcher l’IA de réexplorer, même si le contexte a changé
-                        continue # on ne teste pas les mouvements déjà connus (car on a déjà vu qu'ils n'étaient pas intéressants)
-            if dispoB in self.historique:
-                if str(move) in self.historique[dispoB]:
+            # Sort by historical performance first
+            def move_priority(move):
+                priority = 0
+                dispo = dispoW if dispoW in self.historique else dispoB
+                if dispo in self.historique and str(move) in self.historique[dispo]:
+                    priority += self.historique[dispo][str(move)][0] * 100
+                priority += self.coup_valeur(move)
+                return priority
+            
+            moves_to_search.sort(key=move_priority, reverse=True)
+            
+            for move in moves_to_search:
+                if dispoW in self.historique:
+                    if str(move) in self.historique[dispoW]:
+                        # FIX: Don't skip moves just because they have negative history
+                        # Only skip if they're deeply negative AND we have good alternatives
+                        if self.historique[dispoW][str(move)][0] < -0.5 and \
+                           len([m for m in self.historique[dispoW].values() if m[0] > 0]) > 0:
+                            continue
+                
+                if dispoB in self.historique:
+                    if str(move) in self.historique[dispoB]:
+                        if self.historique[dispoB][str(move)][0] < -0.5 and \
+                           len([m for m in self.historique[dispoB].values() if m[0] > 0]) > 0:
+                            continue
+                
+                dispo = self.get_board_disposition()
+                if dispo[0] in self.donnees_partie["historique_coups"] or \
+                   dispo[1] in self.donnees_partie["historique_coups"]:
                     continue
-            self.board.push(move)
-            dispo = self.get_board_disposition()
-            if dispo[0] in self.donnees_partie["historique_coups"] or dispo[1] in self.donnees_partie["historique_coups"]: # on ne prend que les coups qui n'ont pas encore été joués dans cette partie (pour éviter de tourner en rond)
+                
+                self.board.push(move)
+                score = self.minimax(current_depth - 1, False)
                 self.board.pop()
-                continue
+                
+                if score > best_score_at_depth:
+                    best_score_at_depth = score
+                    best_moves_at_depth = [move]
+                elif score == best_score_at_depth:
+                    best_moves_at_depth.append(move)
+                
+                # Time check
+                if time.time() - self.start_time > self.max_time:
+                    break
             
+            best_moves = best_moves_at_depth
+            best_score = best_score_at_depth
             
-            score = self.minimax(depth, False)#-
-            self.board.pop()
-            if score > best_score:
-                best_score = score
-                best_moves = [move]
-            elif score == best_score:
-                best_moves.append(move)
-
-        if len(best_moves) == 0:
-            print(dispoW)
-            return (random.choice(list(self.board.legal_moves)), dispoW) # si jamais il n'y a aucun coup possible (ce qui ne devrait pas arriver), on en choisit un au hasard pour éviter de faire planter
-
+            # Time check between depths
+            if time.time() - self.start_time > self.max_time:
+                break
+        
+        if not best_moves:
+            best_moves = list(self.board.legal_moves)
+        
         return random.choice(best_moves), dispoW
 
+    
     def get_board_disposition(self):
         dispoW = ""
         dispoB = [[None for _ in range(8)] for _ in range(8)]
@@ -358,97 +494,79 @@ class IA_Echecs:
 
     def jouer(self):
         # Début de la partie : récupère l'historique des parties et crée un dictionnaire pour la nouvelle partie
-        with open('donnees.json', 'r') as fichier:
-            self.historique = json.load(fichier)
-        self.donnees_partie = {"couleur":"white", "historique_coups":{}, "resultat":None}
-        # historique_coups : {"disposition_plateau(str)": "mouvement(str)"}
-        # disposition_plateau (ex : début) : "rnbqkbnr,pppppppp,        ,        ,        ,        ,PPPPPPPP,RNBQKBNR"
-        # (espace = case vide)
-
-        # On décide qui commence
-        ai_color = random.choice([True, False]) # True = l'IA est blanc ; False = l'IA est noir
+        try:
+            with open('donnees.json', 'r') as fichier:
+                self.historique = json.load(fichier)
+        except FileNotFoundError:
+            self.historique = {}
+        
+        self.donnees_partie = {"couleur": "white", "historique_coups": {}, "resultat": None}
+        
+        ai_color = random.choice([True, False])
         print("L'IA joue les " + ("blancs." if ai_color else "noirs."))
-
+        
         while not self.board.is_game_over():
-            #print(board.turn)
             move, dispo = self.choisir_deplacement()
             self.board.push(move)
-            print(move)
+            print(f"Move: {move} (Nodes evaluated: {self.nodes_evaluated})")
             
-            """if self.board.turn == ai_color: # si c'est le tour de l'IA
-                print("\nAI's turn...")
-                move, dispo = self.choisir_deplacement()
-                self.board.push(move)
-                print(move)
-            else:
-                dispo = self.get_board_disposition()[0]
-                while True:
-                    move = input("\nUn mouvement (ex : e5e3) : ")
-                    try:
-                        self.board.push_san(move)
-                        break
-                    except ValueError:
-                        print("C'est invalide, réessayer.")"""
-
-            # Met à jour l'historique des coups
-            if dispo not in self.donnees_partie["historique_coups"]: # première fois que cette disposition apparaît
+            # Update move history
+            if dispo not in self.donnees_partie["historique_coups"]:
                 self.donnees_partie["historique_coups"][dispo] = [str(move)]
-            elif str(move) not in self.donnees_partie["historique_coups"][dispo]: # si la disposition est déjà apparue mais pas avec ce coup
+            elif str(move) not in self.donnees_partie["historique_coups"][dispo]:
                 self.donnees_partie["historique_coups"][dispo].append(str(move))
-            # si la disposition est déjà apparue avec ce coup, on ne l'ajoute pas à l'historique des coups
         
-        # Game over
-        #print(board)
-        print("game over")
-        # On enregistre le résultat pour l'IA
+        # Game over - record result
+        print("Game over")
         if self.board.is_checkmate():
-            if ai_color != self.board.turn: # si ce n'est pas le tour de l'IA, donc l'IA a gagné
+            if ai_color != self.board.turn:
                 self.donnees_partie["resultat"] = 1
-            elif ai_color == self.board.turn: # si c'est le tour de l'IA, donc l'IA a perdu
-                self.donnees_partie["resultat"] = -1
-        else: # match nul
-            self.donnees_partie["resultat"] = 0
-        print(ai_color, self.donnees_partie["resultat"])
-        print(self.board)
-        # Mise à jour de l'historique des parties
-        dic_coups = self.donnees_partie["historique_coups"]
-        for i in range(len(dic_coups)):
-            disposition = list(dic_coups.keys())[i]
-            if disposition not in self.historique:
-                res = {}
             else:
-                res = self.historique[disposition]
-                
+                self.donnees_partie["resultat"] = -1
+        else:
+            self.donnees_partie["resultat"] = 0
+        
+        print(f"AI Color: {ai_color}, Result: {self.donnees_partie['resultat']}")
+        print(self.board)
+        
+        # Update historical data
+        dic_coups = self.donnees_partie["historique_coups"]
+        for i, disposition in enumerate(dic_coups.keys()):
+            if disposition not in self.historique:
+                self.historique[disposition] = {}
+            
+            res = self.historique[disposition]
+            
             for move in dic_coups[disposition]:
-                # Pour savoir quel est le meilleur coup à faire, même si ce n'est pas l'IA qui a joué ce coup 
-                # (donc on fait comme si c'était l'IA qui l'avait fait)
-                # ça permet d'enregistrer plus rapidement le maximum de dispositions possibles
-                if (i%2 == 1 and ai_color) or (i%2 == 0 and not ai_color): # coup de l'adversaire
+                if (i % 2 == 1 and ai_color) or (i % 2 == 0 and not ai_color):
                     resultat = -1 * self.donnees_partie["resultat"]
-                else: # coup de l'IA
+                else:
                     resultat = self.donnees_partie["resultat"]
                 
                 if move not in res:
-                    res[move] = (resultat, 1) # (moyenne de résultat, nombre de fois joué)
+                    res[move] = (resultat, 1)
                 else:
-                    nv_moyenne = (res[move][0]*res[move][1] + resultat) / (res[move][1] + 1)
+                    nv_moyenne = (res[move][0] * res[move][1] + resultat) / (res[move][1] + 1)
                     res[move] = (nv_moyenne, res[move][1] + 1)
+            
             self.historique[disposition] = res
-
-        # Fin de la partie : met à jour l'historique et le sauvegarde dans le fichier JSON
-        with open("donnees.json", "w") as fichier:
-            # on veut un saut à la ligne entre chaque disposition mais pas entre chaque coup
-            json.dump(self.historique, fichier, indent=4, separators=(",", ": "))
-
-        self.transposition.clear()
-        self.board.reset() # on réinitialise le plateau pour la prochaine partie
         
-ia = IA_Echecs()
+        # Save updated history
+        with open("donnees.json", "w") as fichier:
+            json.dump(self.historique, fichier, indent=4, separators=(",", ": "))
+        
+        self.transpo.clear()
+        self.killer_moves.clear()
+        self.board.reset()
 
 
-for i in range(10000):
-    print("------------------- Partie " + str(i+1) + " ------------------")
-    ia.jouer()
-
-with open("donnees.json", "w") as fichier:
-    json.dump(ia.historique, fichier, indent=4)
+# Main execution
+if __name__ == "__main__":
+    ia = IA_Echecs()
+    
+    for i in range(10000):
+        print(f"\n{'='*50}\nPartie {i+1}\n{'='*50}")
+        ia.jouer()
+    
+    with open("donnees.json", "w") as fichier:
+        json.dump(ia.historique, fichier, indent=4)
