@@ -215,11 +215,15 @@ class IA_Echecs:
             score += 5
         return score
 
-    def quiescence(self, alpha, beta, depth=0):
-        """Quiescence search to evaluate tactical positions"""
+    def quiescence(self, alpha, beta, depth=0):#Quiescence search: trouvé sur internet, typiquement, ça permet de réfléchir à deux fois avant de prendre une piece
+                                            #exemple: je gagne une dame 
+                                            #sauf qu’au coup suivant → on me met echec ou mange une piece
+
+
+        """Quiescence search evalue notre position avec un plan en tete """
         self.nodes_evaluated += 1
         
-        # Time check
+        #time check
         if self.nodes_evaluated % 1000 == 0:
             if time.time() - self.start_time > self.max_time:
                 return self.score_board()
