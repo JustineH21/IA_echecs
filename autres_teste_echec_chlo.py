@@ -344,7 +344,7 @@ class IA_Echecs:
                 dispo = dispoB
             
             for move in self.historique[dispo]:
-                moveMOVE = chess.Move.from_uci(move) # on convertit le mouvement de str à move pour pouvoir vérifier s'il est légal ou pas
+                moveMOVE = self.board.parse_san(move) # on convertit le mouvement de str à move pour pouvoir vérifier s'il est légal ou pas
                 if moveMOVE in self.board.legal_moves:
                     dic_coups[move] = self.historique[dispo][move][0] * 0.8 +  self.historique[dispo][move][1] * 0.2
 
